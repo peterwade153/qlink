@@ -27,7 +27,7 @@ class JSONWebTokenAuthentication(authentication.BaseAuthentication):
         access_token = request.headers.get('Authorization')
         if not access_token:
             return None
-        token =  access_token.split(' ')[1]
+        token = access_token.split(' ')[1]
         return token
 
     @staticmethod
@@ -37,8 +37,8 @@ class JSONWebTokenAuthentication(authentication.BaseAuthentication):
         """
         try:
             payload = jwt.decode(
-                token, 
-                settings.SECRET_KEY, 
+                token,
+                settings.SECRET_KEY,
                 algorithms=['HS256']
             )
             user = User.objects.get(email=payload['email'])
@@ -46,7 +46,7 @@ class JSONWebTokenAuthentication(authentication.BaseAuthentication):
             raise AuthenticationFailed('Invalid token')
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Token has expired')
-        except:
+        except Exception:
             raise AuthenticationFailed('Invalid token, Please Login')
 
         if not user.is_active:

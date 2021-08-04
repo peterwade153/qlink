@@ -2,16 +2,14 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-from authentication import serializers
 
 from authentication.models import User
 from authentication.serializers import UserSerializer
-from authentication.auth_backends import JSONWebTokenAuthentication
 
 
 class UserView(APIView):
     authentication_classes = ()
-    permission_classes = (AllowAny,) 
+    permission_classes = (AllowAny,)
 
     def post(self, request):
         """
@@ -27,9 +25,9 @@ class UserView(APIView):
             user_exists = User.objects.filter(email=email).exists()
             if user_exists:
                 return Response({
-                    "detail":'User already exists, Login',
+                    "detail": 'User already exists, Login',
                     "message": "failed"
-                    }, 
+                    },
                     status=status.HTTP_400_BAD_REQUEST
                 )
             # Create a new user
@@ -42,8 +40,8 @@ class UserView(APIView):
             )
         else:
             return Response({
-                "detail":serializer.errors,
+                "detail": serializer.errors,
                 "message": "failed"
-                }, 
+                },
                 status=status.HTTP_400_BAD_REQUEST
             )

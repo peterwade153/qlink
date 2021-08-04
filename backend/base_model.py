@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models.base import Model
 
 
 class BaseModel(models.Model):
