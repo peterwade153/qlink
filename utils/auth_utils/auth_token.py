@@ -15,11 +15,12 @@ def generate_access_token(user):
         "exp": exp_time
     }
     token = jwt.encode(
-        payload, 
-        settings.SECRET_KEY, 
+        payload,
+        settings.SECRET_KEY,
         algorithm="HS256"
     ).decode('utf-8')
     return token
+
 
 def blacklist_access_token(token):
     try:
