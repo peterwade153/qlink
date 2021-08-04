@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
+from authentication import serializers
 
 from authentication.models import User
 from authentication.serializers import UserSerializer
@@ -39,10 +40,10 @@ class UserView(APIView):
                 },
                 status=status.HTTP_201_CREATED
             )
-        
-        return Response({
-            "detail":'Invalid '+', '.join(serializer.errors),
-            "message": "failed"
-            }, 
-            status=status.HTTP_400_BAD_REQUEST
-        )
+        else:
+            return Response({
+                "detail":serializer.errors,
+                "message": "failed"
+                }, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
