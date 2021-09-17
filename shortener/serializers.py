@@ -8,7 +8,7 @@ class ShortenerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Url
         read_only_fields = ['id', 'user']
-        fields = read_only_fields + ['original_url', 'short_url']
+        fields = read_only_fields + ['original_url', 'short_url', 'visit_count']
 
     def create(self, validated_data):
         try:

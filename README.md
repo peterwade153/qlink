@@ -31,3 +31,18 @@ URL Shortener
    ```
    python manage.py runserver
    ```
+
+8. To run tests
+   ```
+   pytest
+   ```
+
+### Endpoints
+
+Request             | Endpoints                    |       Functionality 
+--------------------|------------------------------|--------------------------------
+POST                |  `/auth/login/ `             |  Login User. `payload`-`{"email:"new email", "password1":"password"}`
+POST                |  `/auth/registration/`       |  Creates a new user. `payload`-`{"email:"new email", "password1":"password", "password2": "password" }` 
+POST                |  `/auth/logout/`             |  Logout user
+POST                |  `/api/shortner/`            |  Create shortened link `payload`-`{"original_url:"url" }` 
+GET                 |  `/api/shortner/`            |  List short links for user
