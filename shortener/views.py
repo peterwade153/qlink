@@ -1,3 +1,5 @@
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
+from django.http.response import Http404, HttpResponseRedirect
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -24,7 +26,7 @@ class ShortenerView(APIView):
         serializer.save(user=request.user)
         return Response({
             "original_url": serializer.data['original_url'],
-            "new_url": request.build_absolute_uri('/') + serializer.data['short_url'],
+            "new_url": request.build_absolute_uri('/') + 'api/' + serializer.data['short_url'],
             "message": "success"
             },
             status=status.HTTP_201_CREATED
@@ -37,3 +39,15 @@ class ShortenerView(APIView):
             "urls": serializer.data},
             status=status.HTTP_200_OK
         )
+
+
+class RedirectView(APIView):
+
+    def get(self, request, short_url):
+        try:
+            url = Url.objects.get(short_url=short_url)
+            url.visit_count += 1
+            url.save()
+        except (ObjectDoesNotExist, MultipleObjectsReturned):
+            raise Http404("Link Broken!")
+        return HttpResponseRedirect(url.original_url)
