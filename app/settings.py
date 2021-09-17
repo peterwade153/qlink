@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'rest_auth.registration',
 
     # local apps
-    'backend',
+    'shortener',
 ]
 
 MIDDLEWARE = [
@@ -156,3 +156,12 @@ AUTHENTICATION_BACKENDS = [
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SITE_ID = 1
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
+
+# NUmber of chars of chars for short URL
+URL_CHAR_SIZE = 10
