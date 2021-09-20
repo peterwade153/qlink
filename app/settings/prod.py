@@ -1,4 +1,3 @@
-from app.settings import DATABASES
 from .base import *
 
 
