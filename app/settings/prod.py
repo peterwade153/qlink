@@ -1,6 +1,11 @@
 from .base import *
 
 
-DATABASES = {}
-db_from_env = dj_database_url.config(default='DATABASE_URL', conn_max_age=500, ssl_require=True)
-DATABASES['default'].update(db_from_env)
+DATABASES = {
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+}
+
+DATABASES['default'].update(dj_database_url.config(
+    conn_max_age=500, ssl_require=True),
+    engine='heroku_connect.db.backends.postgres',
+)
