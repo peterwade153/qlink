@@ -3,6 +3,7 @@
 import os
 import sys
 
+
 def read_env_file(file_name):
     try:
         with open(os.path.join('environments/', file_name), 'r') as f:
@@ -21,7 +22,7 @@ def main():
     if 'ENV_VAR_FILE' in os.environ:
         file_name = os.getenv('ENV_VAR_FILE')
         read_env_file(file_name)
-    
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
