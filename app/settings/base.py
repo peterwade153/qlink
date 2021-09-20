@@ -26,7 +26,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'jisjajajsocoasjoCVUASDV')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', False)
 
-ALLOWED_HOSTS = ['https://qlink-api.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['qlink-api.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
