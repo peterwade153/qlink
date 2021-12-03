@@ -1,5 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.http.response import Http404, HttpResponseRedirect
+from django.db.models import F
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -46,7 +47,7 @@ class RedirectView(APIView):
     def get(self, request, short_url):
         try:
             url = Url.objects.get(short_url=short_url)
-            url.visit_count += 1
+            url.visit_count = F('visit_count') + 1
             url.save()
         except (ObjectDoesNotExist, MultipleObjectsReturned):
             raise Http404("Link Broken!")
